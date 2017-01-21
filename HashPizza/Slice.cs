@@ -13,9 +13,20 @@ namespace HashPizza
         int top;
         int bottom;
 
-        int getSize()
-        {
-            return (right - left) * (top - bottom);
-        }
+        public int Left
+            => left;
+        public int Right
+            => right;
+        public int Width
+            => right - left;
+        public int Top
+            => top;
+        public int Bottom
+            => bottom;
+        public int Height
+        => bottom - top;
+
+        public int Size
+            => Width * Height;
     }
 }
