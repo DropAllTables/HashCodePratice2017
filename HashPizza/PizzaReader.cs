@@ -24,6 +24,17 @@ namespace HashPizza
 
                 pizza.Ingredients = new Ingredient[pizza.NumRows * pizza.NumCols];
 
+                for (int row = 0; row < pizza.NumRows; ++row)
+                {
+                    string rowStr = stream.ReadLine();
+                    for (int col = 0; col < pizza.NumCols; ++col)
+                    {
+                        char ch = rowStr[col];
+
+                        pizza.Ingredients[pizza.GetPosition(row, col)] = ch == 'T' ? Ingredient.Tomato : Ingredient.Mushroom;
+                    }
+                }
+                    
                 return pizza;
             }
         }
