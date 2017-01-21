@@ -10,13 +10,16 @@ namespace HashPizza
     {
         static void Main(string[] args)
         {
-            var input = "medium";
+            var inputs = new string[] { "small", "example", "medium", "big" };
 
-            var pizza = PizzaReader.ReadPizza($"../../../inputs/{input}.in");
+            foreach (var input in inputs)
+            {
+                var pizza = PizzaReader.ReadPizza($"../../../inputs/{input}.in");
 
-            var solution = GeneticSolver.Solve(pizza, 30, 2);
-            Console.WriteLine(solution.Score);
-            SolutionWriter.Write(solution, $"result-{input}.txt");
+                var solution = GeneticSolver.Solve(pizza, 30, 2);
+                Console.WriteLine(solution.Score);
+                SolutionWriter.Write(solution, $"result-{input}.txt");
+            }
             Console.Read();
         }
     }
