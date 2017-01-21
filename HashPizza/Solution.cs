@@ -8,25 +8,39 @@ namespace HashPizza
 {
     public class Solution
     {
-        public List<Slice> Slices = new List<Slice>();
+        public Pizza pizza;
+        List<Slice> slices = new List<Slice>();
+        bool[] positions;
 
-        public bool ExtraSliceFits(Pizza pizza, Slice extraSlice)
+        public Solution(Pizza pizza)
         {
-            bool[] positions = new bool[pizza.NumRows * pizza.NumCols];
+            this.pizza = pizza;
+            this.positions = new bool[pizza.NumRows * pizza.NumCols];
+        }
 
-            foreach (var slice in Slices)
+        public void AddSlice(Slice slice)
+        {
+            slices.Add(slice);
+
+            for (int row = slice.Top; row <= slice.Bottom; ++row)
             {
-                foreach (var position in slice.Positions)
+                for (int col = slice.Left; col <= slice.Right; ++col)
                 {
-                    positions[pizza.GetPosition(position.Item1, position.Item2)] = true;
+                    positions[pizza.GetPosition(row, col)] = true;
                 }
             }
+        }
 
-            foreach (var position in extraSlice.Positions)
+        public bool ExtraSliceFits(Slice extraSlice)
+        {
+            for (int row = extraSlice.Top; row <= extraSlice.Bottom; ++row)
             {
-                if (positions[pizza.GetPosition(position.Item1, position.Item2)])
+                for (int col = extraSlice.Left; col <= extraSlice.Right; ++col)
                 {
-                    return false;
+                    if (positions[pizza.GetPosition(row, col)])
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -34,6 +48,9 @@ namespace HashPizza
         }
 
         public int Score
-            => Slices.Sum(slice => slice.Size);
+            => slices.Sum(slice => slice.Size);
+
+        public IEnumerable<Slice> Slices
+            => slices;
     }
 }

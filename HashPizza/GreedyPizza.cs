@@ -8,10 +8,8 @@ namespace HashPizza
 {
     public class GreedyPizza : Solution
     {
-        Pizza pizza;
-        public GreedyPizza(Pizza pizza)
+        public GreedyPizza(Pizza pizza) : base(pizza)
         {
-            this.pizza = pizza;
             solve();
         }
 
@@ -59,7 +57,7 @@ namespace HashPizza
                 {
                     if (pizza.HasMinimumIngredients(slice))
                     {
-                        Slices.Add(slice);
+                        AddSlice(slice);
                     }
                 } else {
                     var ori = slice.Height > slice.Width ? Orientation.Horizontal : Orientation.Vertical;

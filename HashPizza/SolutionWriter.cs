@@ -19,7 +19,7 @@ namespace HashPizza
 
         public static void Write(Solution solution, StreamWriter writer)
         {
-            writer.WriteLine(solution.Slices.Count);
+            writer.WriteLine(solution.Slices.Count());
             foreach (var slice in solution.Slices)
             {
                 writer.WriteLine($"{slice.Top} {slice.Left} {slice.Bottom} {slice.Right}");
