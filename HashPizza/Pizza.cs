@@ -69,5 +69,24 @@ namespace HashPizza
             var ings = pizza.GetSlice(slice);
             return ings.Count(x => x == ingredient);
         }
+
+        internal bool HasMinimumIngredients(Slice slice)
+        {
+            int numTomatoes = 0;
+            int numMushrooms = 0;
+
+            foreach (var position in slice.Positions)
+            {
+                if (Ingredients[GetPosition(position.Item1, position.Item2)] == Ingredient.Tomato)
+                {
+                    ++numTomatoes;
+                } else
+                {
+                    ++numMushrooms;
+                }
+            }
+
+            return numTomatoes >= MinIngredients && numMushrooms >= MinIngredients;
+        }
     }
 }

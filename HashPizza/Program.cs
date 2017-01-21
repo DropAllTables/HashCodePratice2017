@@ -10,14 +10,11 @@ namespace HashPizza
     {
         static void Main(string[] args)
         {
-            var input = "small";
+            var input = "medium";
 
             var pizza = PizzaReader.ReadPizza($"../../../inputs/{input}.in");
 
-            Console.WriteLine(pizza.GetTomatoMushroomBalance());
-
-            var solution = new Solution();
-            solution.Slices.Add(new Slice(0, 1, 2, 3));
+            var solution = GeneticSolver.Solve(pizza, 30, 2);
             Console.WriteLine(solution.Score);
             SolutionWriter.Write(solution, $"result-{input}.txt");
             Console.Read();
