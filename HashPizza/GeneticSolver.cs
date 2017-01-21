@@ -8,7 +8,7 @@ namespace HashPizza
 {
     public class GeneticSolver
     {
-        public static Solution Solve(Pizza pizza, int numIndividuals, int numIterations)
+        public static Solution Solve(Pizza pizza, int numIndividuals, int numIterations, float mutationProbability)
         {
             int rowBits = (int)Math.Ceiling(Math.Log(pizza.NumRows) / Math.Log(2));
             int colBits = (int)Math.Ceiling(Math.Log(pizza.NumCols) / Math.Log(2));
@@ -33,12 +33,49 @@ namespace HashPizza
                 individuals.Add(individual);
             }
 
-            return BuildSolution(pizza, individuals[0], rowBits, colBits, sizeBits, maxNumSlices);
+            Solution bestSolutionSoFar = null;
+            int bestSolutionValue = int.MinValue;
+
+            for (int it = 0; it < numIterations; ++it)
+            {
+                PerformMutations(individuals, random, mutationProbability);
+
+                Solution[] solutions = new Solution[numIndividuals];
+                for (int i = 0; i < numIndividuals; ++i)
+                {
+                    solutions[i] = BuildSolution(pizza, individuals[i], rowBits, colBits, sizeBits, maxNumSlices);
+                }
+
+                var proposedResult = solutions
+                    .WithMax(solution => solution.Score);
+
+                if (proposedResult.Item2 > bestSolutionValue)
+                {
+                    bestSolutionSoFar = proposedResult.Item1;
+                    bestSolutionValue = proposedResult.Item2;
+                }
+            }
+
+            return bestSolutionSoFar;
+        }
+
+        private static void PerformMutations(List<bool[]> individuals, Random random, float mutationProbability)
+        {
+            foreach (var individual in individuals)
+            {
+                for (int bit = 0; bit < individual.Length; ++bit)
+                {
+                    if (mutationProbability > random.NextDouble())
+                    {
+                        individual[bit] = !individual[bit];
+                    }
+                }
+            }
         }
 
         private static Solution BuildSolution(Pizza pizza, bool[] individual, int rowBits, int colBits, int sizeBits, int maxNumSlices)
         {
-            var solution = new Solution();
+            var solution = new Solution(pizza);
 
             int sliceSize = rowBits + colBits + 2 * sizeBits;
 
@@ -89,9 +126,9 @@ namespace HashPizza
                 }
 
                 var slice = new Slice(col, col + width - 1, row, row + height - 1);
-                if (slice.Size < pizza.MaxCells && pizza.HasMinimumIngredients(slice) && solution.ExtraSliceFits(pizza, slice))
+                if (slice.Size < pizza.MaxCells && pizza.HasMinimumIngredients(slice) && solution.ExtraSliceFits(slice))
                 {
-                    solution.Slices.Add(slice);
+                    solution.AddSlice(slice);
                 }
             }
 

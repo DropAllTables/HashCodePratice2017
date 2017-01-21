@@ -46,6 +46,7 @@
     <Compile Include="GeneticSolver.cs" />
     <Compile Include="GreedyPizza.cs" />
     <Compile Include="Ingredient.cs" />
+    <Compile Include="LinqUtils.cs" />
     <Compile Include="Pizza.cs" />
     <Compile Include="PizzaReader.cs" />
     <Compile Include="Program.cs" />
