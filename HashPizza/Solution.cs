@@ -21,7 +21,11 @@ namespace HashPizza
         public void AddSlice(Slice slice)
         {
             slices.Add(slice);
+            AddSlicePositions(slice);
+        }
 
+        public void AddSlicePositions(Slice slice)
+        {
             for (int row = slice.Top; row <= slice.Bottom; ++row)
             {
                 for (int col = slice.Left; col <= slice.Right; ++col)
@@ -46,6 +50,9 @@ namespace HashPizza
 
             return true;
         }
+
+        public bool UsesPosition(int row, int col)
+            => positions[pizza.GetPosition(row, col)];
 
         public int Score
             => slices.Sum(slice => slice.Size);

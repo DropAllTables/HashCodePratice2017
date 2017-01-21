@@ -16,12 +16,11 @@ namespace HashPizza
             {
                 var pizza = PizzaReader.ReadPizza($"../../../inputs/{input}.in");
 
-                Solution solution = new GreedyPizza(pizza);
-                //var startSolutions = new List<Solution> {
-                //    solution
-                //};
-                //solution = GeneticSolver.Solve(pizza, startSolutions, 30, 2, 0.001f, 0.001f, 10);
+                Solution solution = new Solution(pizza);
+                NaiveOptimizer.Optimize(solution);
+                SliceBreakerOptimizer.Optimize(solution);
                 Console.WriteLine(solution.Score);
+                Console.WriteLine("Efficiency: " + solution.Score / (float) (pizza.NumRows * pizza.NumCols));
                 SolutionWriter.Write(solution, $"result-{input}.txt");
             }
             Console.Read();

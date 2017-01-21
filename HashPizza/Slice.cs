@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HashPizza
 {
-    public class Slice
+    public struct Slice
     {
         int left;
         int right;
