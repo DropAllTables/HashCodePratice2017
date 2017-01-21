@@ -76,10 +76,20 @@ namespace HashPizza
                     .Take(survivalsPerGeneration)
                     .ToList();
 
+                individuals.Add(CreateIndividualFromSolution(pizza, rowBits, colBits, sizeBits, maxNumSlices, bestSolutionSoFar));
+
                 while (individuals.Count < numIndividuals)
                 {
                     // Reproduce
-                    individuals.Add((bool[]) individuals[random.Next(individuals.Count)].Clone());
+                    individuals.Add((bool[])individuals[random.Next(individuals.Count)].Clone());
+                }
+
+                Console.WriteLine("> " + maxScore);
+
+                if (maxScore > bestSolutionValue)
+                {
+                    bestSolutionSoFar = proposedResult.Item1;
+                    bestSolutionValue = maxScore;
                 }
 
                 // Cross-over
@@ -97,14 +107,6 @@ namespace HashPizza
                             genome2[bit] = bit1;
                         }
                     }
-                }
-
-                Console.WriteLine("> " + maxScore);
-
-                if (maxScore > bestSolutionValue)
-                {
-                    bestSolutionSoFar = proposedResult.Item1;
-                    bestSolutionValue = maxScore;
                 }
             }
 
