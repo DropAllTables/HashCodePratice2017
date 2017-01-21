@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace HashPizza
 {
-    class Pizza
+    public class Pizza
     {
         public int MinIngredients;
-        public int MaxSize;
-        public Ingredient[,] Ingredients;
+        public int MaxCells;
+        public int NumRows;
+        public int NumCols;
+        public Ingredient[] Ingredients;
     }
 }

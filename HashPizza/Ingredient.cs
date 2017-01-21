@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HashPizza
 {
-    enum Ingredient : byte
+    public enum Ingredient : byte
     {
         Tomato,
         Mushroom
