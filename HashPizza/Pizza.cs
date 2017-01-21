@@ -43,6 +43,14 @@ namespace HashPizza
             return builder.ToString();
         }
 
+        public float GetTomatoMushroomBalance()
+        {
+            int totalCells = NumRows * NumCols;
+            int tomatos = Ingredients.Count(i => i == Ingredient.Tomato);
+
+            return tomatos / (float)totalCells;
+        }
+
         public Ingredient[] GetSlice(Slice slice)
         {
             LinkedList<Ingredient> list = new LinkedList<Ingredient>();
@@ -60,6 +68,25 @@ namespace HashPizza
         {
             var ings = GetSlice(slice);
             return ings.Count(x => x == ingredient);
+        }
+
+        internal bool HasMinimumIngredients(Slice slice)
+        {
+            int numTomatoes = 0;
+            int numMushrooms = 0;
+
+            foreach (var position in slice.Positions)
+            {
+                if (Ingredients[GetPosition(position.Item1, position.Item2)] == Ingredient.Tomato)
+                {
+                    ++numTomatoes;
+                } else
+                {
+                    ++numMushrooms;
+                }
+            }
+
+            return numTomatoes >= MinIngredients && numMushrooms >= MinIngredients;
         }
 
         public int SliceScore(Slice slice)

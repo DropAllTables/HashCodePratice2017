@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace HashPizza
 {
-    class GreedyPizza : Solution
+    public class GreedyPizza : Solution
     {
         Pizza pizza;
-        GreedyPizza(Pizza pizza)
+        public GreedyPizza(Pizza pizza)
         {
             this.pizza = pizza;
             solve();

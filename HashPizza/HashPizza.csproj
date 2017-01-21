@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneticSolver.cs" />
     <Compile Include="GreedyPizza.cs" />
     <Compile Include="Ingredient.cs" />
     <Compile Include="Pizza.cs" />
