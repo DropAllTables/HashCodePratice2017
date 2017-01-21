@@ -56,10 +56,29 @@ namespace HashPizza
             return list.ToArray();
         }
 
-        public int GetNumIngredients(Ingredient ingredient, Slice slice, Pizza pizza)
+        public int GetNumIngredients(Ingredient ingredient, Slice slice)
         {
-            var ings = pizza.GetSlice(slice);
+            var ings = GetSlice(slice);
             return ings.Count(x => x == ingredient);
+        }
+
+        public int SliceScore(Slice slice)
+        {
+            if(GetNumIngredients(Ingredient.Tomato, slice) < MinIngredients)
+            {
+                return -1;
+            }
+
+            if (GetNumIngredients(Ingredient.Mushroom, slice) < MinIngredients)
+            {
+                return -1;
+            }
+
+            if(slice.Size > MaxCells)
+            {
+                return -1;
+            }
+            return slice.Size;
         }
     }
 }
