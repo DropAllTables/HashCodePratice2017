@@ -51,23 +51,22 @@ namespace HashPizza
             return tomatos / (float)totalCells;
         }
 
-        public List<Ingredient> GetSlice(Slice slice)
+        public int GetNumIngredients(Ingredient ingredient, Slice slice)
         {
-            List<Ingredient> list = new List<Ingredient>();
+            int total = 0;
+
             for (int y = Math.Max(slice.Top, 0); y < Math.Min(slice.Bottom, NumRows - 1); y++)
             {
                 for (int x = Math.Max(slice.Left, 0); x < Math.Min(slice.Right, NumCols - 1); x++)
                 {
-                    list.Add(Ingredients[GetPosition(y, x)]);
+                    if (Ingredients[GetPosition(y, x)] == ingredient)
+                    {
+                        ++total;
+                    }
                 }
             }
-            return list;
-        }
 
-        public int GetNumIngredients(Ingredient ingredient, Slice slice)
-        {
-            var ings = GetSlice(slice);
-            return ings.Count(x => x == ingredient);
+            return total;
         }
 
         internal bool HasMinimumIngredients(Slice slice)
