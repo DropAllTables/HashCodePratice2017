@@ -10,7 +10,8 @@ namespace HashPizza
     {
         public GreedyPizza(Pizza pizza) : base(pizza)
         {
-            solve();
+            //solve();
+            FillEmptySpaces();
         }
 
         enum Orientation
@@ -88,6 +89,69 @@ namespace HashPizza
                     slicesQueue.Enqueue(bestDivision.Item2);
                 }
             }
+        }
+        HashSet<Tuple<int, int>> setPos = new HashSet<Tuple<int, int>>();
+
+        void FillEmptySpaces()
+        {
+            for (int x = 0; x < pizza.NumCols; x++)
+            {
+                for (int y = 0; y < pizza.NumRows; y++)
+                {
+                    if(!IsCellOccupied(x, y))
+                    {
+                        Slice slice = FillSlice(x, y, Slices);
+                        if(slice.Size > 1)
+                        {
+                            Slices.Add(slice);
+                            foreach (var pos in slice.Positions)
+                                setPos.Add(pos);
+                        }
+                    }
+                }
+            }
+        }
+
+        Slice FillSlice(int initX, int initY, List<Slice> existingSlices)
+        {
+            Slice slice = new Slice(initX, initX, initY, initY);
+            for (int x = initX; x < initX + pizza.MaxCells; x++)
+            {
+                for (int y = initY; y < initY + pizza.MaxCells; y++)
+                {
+                    if ((y - initY) * (x - initX) > pizza.MaxCells || x >= pizza.NumCols || y >= pizza.NumRows)
+                    {
+                        break;
+                    }
+                    var newSlice = new Slice(initX, x, initY, y);
+                    if(newSlice.Size > slice.Size && newSlice.Size <= pizza.MaxCells && pizza.HasMinimumIngredients(newSlice) && !SliceOverlaps(newSlice))
+                    {
+                        slice = newSlice;
+                    }
+                }
+            }
+            return slice;
+        }
+
+        Boolean IsCellOccupied(int x, int y)
+        {
+            if (setPos.Contains(new Tuple<int, int>(y, x)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        Boolean SliceOverlaps(Slice slice)
+        {
+            foreach(var pos in slice.Positions)
+            {
+                if (setPos.Contains(pos))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

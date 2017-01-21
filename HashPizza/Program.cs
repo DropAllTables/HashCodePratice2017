@@ -24,6 +24,7 @@ namespace HashPizza
                 Console.WriteLine(solution.Score);
                 SolutionWriter.Write(solution, $"result-{input}.txt");
             }
+            Console.Read();
         }
     }
 }
