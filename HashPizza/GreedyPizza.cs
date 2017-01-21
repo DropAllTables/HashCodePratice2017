@@ -8,7 +8,7 @@ namespace HashPizza
 {
     public class GreedyPizza : Solution
     {
-        public GreedyPizza(Pizza pizza) : base(pizza)
+        private GreedyPizza(Pizza pizza) : base(pizza)
         {
             //solve();
             FillEmptySpaces();
@@ -24,6 +24,19 @@ namespace HashPizza
             var numMushrooms = pizza.GetNumIngredients(Ingredient.Mushroom, slice);
             var numTomatoes = slice.Size - numMushrooms;
             return ((float)numMushrooms) / numTomatoes;
+        }
+
+        public static Solution Solve(Pizza pizza)
+        {
+            var baseSolution = new GreedyPizza(pizza);
+
+            var newSolution = new Solution(pizza);
+            foreach (var slice in baseSolution.Slices)
+            {
+                newSolution.AddSlice(slice);
+            }
+
+            return newSolution;
         }
 
         float RatioScore(Slice slice1, Slice slice2)

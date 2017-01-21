@@ -11,6 +11,7 @@ namespace HashPizza
     {
         public static void Write(Solution solution, string filename)
         {
+            File.Delete(filename);
             using (var writer = new StreamWriter(File.OpenWrite(filename)))
             {
                 Write(solution, writer);
@@ -19,7 +20,7 @@ namespace HashPizza
 
         public static void Write(Solution solution, StreamWriter writer)
         {
-            writer.WriteLine(solution.Slices.Count());
+            writer.WriteLine(solution.Slices.Count);
             foreach (var slice in solution.Slices)
             {
                 writer.WriteLine($"{slice.Top} {slice.Left} {slice.Bottom} {slice.Right}");

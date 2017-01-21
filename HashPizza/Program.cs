@@ -12,18 +12,20 @@ namespace HashPizza
         {
             var inputs = new string[] { "small", "example", "medium", "big" };
 
+            Solution solution = null;
             foreach (var input in inputs)
             {
                 var pizza = PizzaReader.ReadPizza($"../../../inputs/{input}.in");
 
-                Solution solution = new Solution(pizza);
-                NaiveOptimizer.Optimize(solution);
-                SliceBreakerOptimizer.Optimize(solution);
+                solution = GreedyPizza.Solve(pizza);
+                //NaiveOptimizer.Optimize(solution);
+                //SliceBreakerOptimizer.Optimize(solution);
                 Console.WriteLine(solution.Score);
                 Console.WriteLine("Efficiency: " + solution.Score / (float) (pizza.NumRows * pizza.NumCols));
                 SolutionWriter.Write(solution, $"result-{input}.txt");
             }
-            Console.Read();
+
+            System.Windows.Forms.Application.Run(new Visualizer(solution));
         }
     }
 }

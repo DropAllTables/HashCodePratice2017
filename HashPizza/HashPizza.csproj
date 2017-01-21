@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +58,18 @@
     <Compile Include="SliceBreakerOptimizer.cs" />
     <Compile Include="Solution.cs" />
     <Compile Include="SolutionWriter.cs" />
+    <Compile Include="Visualizer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Visualizer.Designer.cs">
+      <DependentUpon>Visualizer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VisualizerControl.Designer.cs">
+      <DependentUpon>VisualizerControl.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
