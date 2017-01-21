@@ -32,5 +32,8 @@ namespace HashPizza
 
             return true;
         }
+
+        public int Score
+            => Slices.Sum(slice => slice.Size);
     }
 }

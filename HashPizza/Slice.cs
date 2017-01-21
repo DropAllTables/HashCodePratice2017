@@ -18,13 +18,13 @@ namespace HashPizza
         public int Right
             => right;
         public int Width
-            => right - left;
+            => (right - left + 1);
         public int Top
             => top;
         public int Bottom
             => bottom;
         public int Height
-        => bottom - top;
+        => (bottom - top + 1);
 
         public int Size
             => Width * Height;
