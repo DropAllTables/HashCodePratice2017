@@ -47,6 +47,9 @@ namespace HashPizza
             return true;
         }
 
+        public bool UsesPosition(int row, int col)
+            => positions[pizza.GetPosition(row, col)];
+
         public int Score
             => slices.Sum(slice => slice.Size);
 
