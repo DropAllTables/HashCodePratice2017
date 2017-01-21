@@ -20,9 +20,9 @@ namespace HashPizza
 
         float GetSliceRatio(Slice slice)
         {
-            return
-                ((float)pizza.GetNumIngredients(Ingredient.Mushroom, slice)) /
-            pizza.GetNumIngredients(Ingredient.Tomato, slice);
+            var numMushrooms = pizza.GetNumIngredients(Ingredient.Mushroom, slice);
+            var numTomatoes = slice.Size - numMushrooms;
+            return ((float)numMushrooms) / numTomatoes;
         }
 
         float RatioScore(Slice slice1, Slice slice2)

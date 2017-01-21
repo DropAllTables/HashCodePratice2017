@@ -20,11 +20,10 @@ namespace HashPizza
                 var startSolutions = new List<Solution> {
                     solution
                 };
-                solution = GeneticSolver.Solve(pizza, startSolutions, 30, 20, 0.01f, 0.05f, 20);
+                solution = GeneticSolver.Solve(pizza, startSolutions, 30, 2, 0.01f, 0.05f, 20);
                 Console.WriteLine(solution.Score);
                 SolutionWriter.Write(solution, $"result-{input}.txt");
             }
-            Console.Read();
         }
     }
 }
