@@ -36,5 +36,19 @@ namespace HashPizza
             this.top = top;
             this.bottom = bottom;
         }
+
+        public IEnumerable<Tuple<int, int>> Positions
+        {
+            get
+            {
+                for (int row = Top; row <= Bottom; ++row)
+                {
+                    for (int col = Left; col <= Right; ++col)
+                    {
+                        yield return Tuple.Create(row, col);
+                    }
+                }
+            }
+        }
     }
 }
