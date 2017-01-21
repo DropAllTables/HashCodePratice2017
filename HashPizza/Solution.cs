@@ -8,7 +8,7 @@ namespace HashPizza
 {
     public class Solution
     {
-        Pizza pizza;
+        public Pizza pizza;
         List<Slice> slices = new List<Slice>();
         bool[] positions;
 

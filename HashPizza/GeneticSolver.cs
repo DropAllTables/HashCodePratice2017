@@ -8,7 +8,7 @@ namespace HashPizza
 {
     public class GeneticSolver
     {
-        public static Solution Solve(Pizza pizza, int numIndividuals, int numIterations, float mutationProbability)
+        public static Solution Solve(Pizza pizza, int numIndividuals, int numIterations, float mutationProbability, int survivalsPerGeneration)
         {
             int rowBits = (int)Math.Ceiling(Math.Log(pizza.NumRows) / Math.Log(2));
             int colBits = (int)Math.Ceiling(Math.Log(pizza.NumCols) / Math.Log(2));
@@ -48,11 +48,23 @@ namespace HashPizza
 
                 var proposedResult = solutions
                     .WithMax(solution => solution.Score);
+                int maxScore = proposedResult.Item2;
 
-                if (proposedResult.Item2 > bestSolutionValue)
+                // Selection
+                individuals = solutions.Select((solution, index) => Tuple.Create(index, solution.Score))
+                    .OrderByDescending(proposal => proposal.Item2)
+                    .Select(proposal => individuals[proposal.Item1])
+                    .Take(survivalsPerGeneration)
+                    .ToList();
+                while (individuals.Count < numIndividuals)
+                {
+                    individuals.Add(CreateIndividual(genomeBits, random));
+                }
+
+                if (maxScore > bestSolutionValue)
                 {
                     bestSolutionSoFar = proposedResult.Item1;
-                    bestSolutionValue = proposedResult.Item2;
+                    bestSolutionValue = maxScore;
                 }
             }
 
