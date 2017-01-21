@@ -47,6 +47,7 @@ namespace HashPizza
 
         void solve()
         {
+            var rand = new Random();
             Queue<Slice> slicesQueue = new Queue<Slice>();
             slicesQueue.Enqueue(new Slice(0,pizza.NumCols - 1, 0, pizza.NumRows - 1));
 
@@ -66,16 +67,22 @@ namespace HashPizza
 
                     float bestScore = 0f;
                     int bestIndex = min;
+                    object locker = new object();
                     Parallel.For(min + 1, max - 1, i => {
                         var dividedSlice = DivideSlice(slice, i, ori);
 
                         var score = RatioScore(dividedSlice.Item1, dividedSlice.Item2);
                         if (score > bestScore)
                         {
-                            bestScore = score;
-                            bestIndex = i;
+                            lock(locker)
+                            {
+                                bestScore = score;
+                                bestIndex = i;
+                            }
                         }
                     });
+                    var variation = rand.Next(-20, 21);
+                    bestIndex = Math.Max(Math.Min(bestIndex + variation, max - 2), min + 1);
                     var bestDivision = DivideSlice(slice, bestIndex, ori);
                     slicesQueue.Enqueue(bestDivision.Item1);
                     slicesQueue.Enqueue(bestDivision.Item2);
