@@ -59,10 +59,7 @@ namespace HashPizza
             {
                 for (int x = Math.Max(slice.Left, 0); x < Math.Min(slice.Right, NumCols - 1); x++)
                 {
-                    if (Ingredients[GetPosition(y, x)] == ingredient)
-                    {
-                        ++total;
-                    }
+                    total += Ingredients[GetPosition(y, x)] == ingredient ? 1 : 0;
                 }
             }
 

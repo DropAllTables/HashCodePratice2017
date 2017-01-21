@@ -50,7 +50,7 @@ namespace HashPizza
         public int Score
             => slices.Sum(slice => slice.Size);
 
-        public IEnumerable<Slice> Slices
+        public List<Slice> Slices
             => slices;
     }
 }
