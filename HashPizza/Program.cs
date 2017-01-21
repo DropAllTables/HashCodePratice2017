@@ -10,8 +10,13 @@ namespace HashPizza
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(PizzaReader.ReadPizza("../../../inputs/small.in"));
-            Console.Read();
+            var input = "small";
+
+            var pizza = PizzaReader.ReadPizza($"../../../inputs/{input}.in");
+
+            var solution = new Solution();
+            solution.Slices.Add(new Slice(0, 1, 2, 3));
+            SolutionWriter.Write(solution, $"result-{input}.txt");
         }
     }
 }
