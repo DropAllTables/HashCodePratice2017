@@ -44,7 +44,11 @@ namespace HashPizza
                 int height = y2 - y1;
 
                 e.Graphics.FillRectangle(Brushes.Red, new Rectangle(x1, y1, width, height));
-                e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x1, y1, width, height));
+
+                if (cellW > 10 && cellH > 10)
+                {
+                    e.Graphics.DrawRectangle(Pens.Black, new Rectangle(x1, y1, width, height));
+                }
             }
         }
     }
