@@ -51,17 +51,17 @@ namespace HashPizza
             return tomatos / (float)totalCells;
         }
 
-        public Ingredient[] GetSlice(Slice slice)
+        public List<Ingredient> GetSlice(Slice slice)
         {
             List<Ingredient> list = new List<Ingredient>();
-            for(int x = Math.Max(slice.Left, 0); x < Math.Min(slice.Right, NumCols - 1); x++)
+            for (int y = Math.Max(slice.Top, 0); y < Math.Min(slice.Bottom, NumRows - 1); y++)
             {
-                for (int y = Math.Max(slice.Top, 0); y < Math.Min(slice.Bottom, NumRows - 1); y++)
+                for (int x = Math.Max(slice.Left, 0); x < Math.Min(slice.Right, NumCols - 1); x++)
                 {
                     list.Add(Ingredients[GetPosition(y, x)]);
                 }
             }
-            return list.ToArray();
+            return list;
         }
 
         public int GetNumIngredients(Ingredient ingredient, Slice slice)
@@ -91,12 +91,7 @@ namespace HashPizza
 
         public int SliceScore(Slice slice)
         {
-            if(GetNumIngredients(Ingredient.Tomato, slice) < MinIngredients)
-            {
-                return -1;
-            }
-
-            if (GetNumIngredients(Ingredient.Mushroom, slice) < MinIngredients)
+            if(!HasMinimumIngredients(slice))
             {
                 return -1;
             }
