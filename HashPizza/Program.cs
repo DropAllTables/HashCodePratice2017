@@ -18,7 +18,7 @@ namespace HashPizza
 
                 Solution solution = new Solution(pizza);
                 NaiveOptimizer.Optimize(solution);
-                //SliceBreakerOptimizer.Optimize(solution);
+                SliceBreakerOptimizer.Optimize(solution);
                 Console.WriteLine(solution.Score);
                 Console.WriteLine("Efficiency: " + solution.Score / (float) (pizza.NumRows * pizza.NumCols));
                 SolutionWriter.Write(solution, $"result-{input}.txt");

@@ -35,7 +35,9 @@ namespace HashPizza
             {
             }
 
-            for (int size = Math.Max(maxRows, maxCols); size >= minSize; --size) {
+            int maxSize = Math.Max(maxRows, maxCols);
+            for (int size = maxSize; size >= minSize; --size)
+            {
                 for (int width = size - 1; width > 0; --width)
                 {
                     int height = size - width;
