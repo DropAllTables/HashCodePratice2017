@@ -42,5 +42,24 @@ namespace HashPizza
 
             return builder.ToString();
         }
+
+        public Ingredient[] GetSlice(Slice slice)
+        {
+            LinkedList<Ingredient> list = new LinkedList<Ingredient>();
+            for(int x = slice.Left; x < slice.Right; x++)
+            {
+                for (int y = slice.Top; y < slice.Bottom; y++)
+                {
+                    list.AddLast(Ingredients[GetPosition(x, y)]);
+                }
+            }
+            return list.ToArray();
+        }
+
+        public int GetNumIngredients(Ingredient ingredient, Slice slice, Pizza pizza)
+        {
+            var ings = pizza.GetSlice(slice);
+            return ings.Count(x => x == ingredient);
+        }
     }
 }
