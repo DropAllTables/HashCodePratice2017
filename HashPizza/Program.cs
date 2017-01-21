@@ -14,6 +14,9 @@ namespace HashPizza
 
             var pizza = PizzaReader.ReadPizza($"../../../inputs/{input}.in");
 
+            Console.WriteLine(pizza.GetTomatoMushroomBalance());
+            Console.Read();
+
             var solution = new Solution();
             solution.Slices.Add(new Slice(0, 1, 2, 3));
             SolutionWriter.Write(solution, $"result-{input}.txt");

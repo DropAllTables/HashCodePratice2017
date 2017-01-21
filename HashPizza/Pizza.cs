@@ -43,6 +43,14 @@ namespace HashPizza
             return builder.ToString();
         }
 
+        public float GetTomatoMushroomBalance()
+        {
+            int totalCells = NumRows * NumCols;
+            int tomatos = Ingredients.Count(i => i == Ingredient.Tomato);
+
+            return tomatos / (float)totalCells;
+        }
+
         public Ingredient[] GetSlice(Slice slice)
         {
             LinkedList<Ingredient> list = new LinkedList<Ingredient>();
