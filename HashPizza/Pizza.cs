@@ -53,12 +53,12 @@ namespace HashPizza
 
         public Ingredient[] GetSlice(Slice slice)
         {
-            LinkedList<Ingredient> list = new LinkedList<Ingredient>();
-            for(int x = slice.Left; x < slice.Right; x++)
+            List<Ingredient> list = new List<Ingredient>();
+            for(int x = Math.Max(slice.Left, 0); x < Math.Min(slice.Right, NumCols - 1); x++)
             {
-                for (int y = slice.Top; y < slice.Bottom; y++)
+                for (int y = Math.Max(slice.Top, 0); y < Math.Min(slice.Bottom, NumRows - 1); y++)
                 {
-                    list.AddLast(Ingredients[GetPosition(x, y)]);
+                    list.Add(Ingredients[GetPosition(y, x)]);
                 }
             }
             return list.ToArray();

@@ -38,11 +38,11 @@ namespace HashPizza
             if (orientation == Orientation.Horizontal)
             {
                 slice1 = new Slice(slice.Left, slice.Right, slice.Top, index);
-                slice2 = new Slice(slice.Left, slice.Right, index, slice.Bottom);
+                slice2 = new Slice(slice.Left, slice.Right, index + 1, slice.Bottom);
             } else
             {
                 slice1 = new Slice(slice.Left, index, slice.Top, slice.Bottom);
-                slice2 = new Slice(index, slice.Right, slice.Top, slice.Bottom);
+                slice2 = new Slice(index + 1, slice.Right, slice.Top, slice.Bottom);
             }
             return new Tuple<Slice, Slice>(slice1, slice2);
         }
@@ -50,14 +50,14 @@ namespace HashPizza
         void solve()
         {
             Queue<Slice> slicesQueue = new Queue<Slice>();
-            slicesQueue.Enqueue(new Slice(0,pizza.NumCols, 0, pizza.NumRows));
+            slicesQueue.Enqueue(new Slice(0,pizza.NumCols - 1, 0, pizza.NumRows - 1));
 
             while(slicesQueue.Count > 0)
             {
                 Slice slice = slicesQueue.Dequeue();
                 if (slice.Size <= pizza.MaxCells)
                 {
-                    if (pizza.SliceScore(slice) > 0)
+                    if (pizza.HasMinimumIngredients(slice))
                     {
                         Slices.Add(slice);
                     }
@@ -68,8 +68,7 @@ namespace HashPizza
 
                     float bestScore = 0f;
                     int bestIndex = min;
-                    for(int i = min; i < max; i++)
-                    {
+                    Parallel.For(min + 1, max - 1, i => {
                         var dividedSlice = DivideSlice(slice, i, ori);
 
                         var score = RatioScore(dividedSlice.Item1, dividedSlice.Item2);
@@ -78,7 +77,7 @@ namespace HashPizza
                             bestScore = score;
                             bestIndex = i;
                         }
-                    }
+                    });
                     var bestDivision = DivideSlice(slice, bestIndex, ori);
                     slicesQueue.Enqueue(bestDivision.Item1);
                     slicesQueue.Enqueue(bestDivision.Item2);
